@@ -4,10 +4,11 @@
 ,   "author": "Hassen Taidirt <htaidirt@gmail.com>"
 ,   "private": true
 ,   "dependencies":
-{
+{       "express": "latest"
 }
 ,   "devDependencies":
 {       "mocha": "latest"
+,       "consoleplusplus": "*"
 }
 ,   "scripts":
 {       "start": "node app"
