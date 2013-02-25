@@ -1,0 +1,16 @@
+{   "name": "Smart-Hub"
+,   "version": "0.0.1"
+,   "description": "The Smart Hub server."
+,   "author": "Hassen Taidirt <htaidirt@gmail.com>"
+,   "private": true
+,   "dependencies":
+{
+}
+,   "devDependencies":
+{       "mocha": "latest"
+}
+,   "scripts":
+{       "start": "node app"
+,       "test": "mocha test"
+}
+}
