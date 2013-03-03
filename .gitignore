@@ -13,10 +13,6 @@
 node_modules
 lib-cov
 
-## coffeescript
-lib/*.js
-test/*.js
-
 ## archives and compressed files
 *.7z
 *.jar
