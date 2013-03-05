@@ -90,3 +90,12 @@ GRTAGS
 GSYMS
 GTAGS
 TAGS
+
+
+
+#################################
+#
+#   Specific for this project
+#
+#################################
+apps/

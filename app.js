@@ -12,10 +12,10 @@ var http = require('http')
 var port = process.env.PORT || 1337
 ,   app = express()
     /*
-     * The things are listed as folders in the ./things folder.
+     * The thing apps are listed in the ./apps folder.
      * Get the folders list to get the installed things modules.
      */
-,   things = fs.readdirSync('./things')
+,   apps = fs.readdirSync('./apps')
 
 /*
  * Configure express for the development mode.
@@ -39,7 +39,7 @@ app.all('/:thing_id', function(req, res){
      * Check if the thing module exists.
      */
     var thing_id = req.params.thing_id
-    if(things.indexOf(thing_id) !== -1){
+    if(apps.indexOf(thing_id) !== -1){
         
 
         var getParams = require('url').parse(req.url, true)
@@ -49,15 +49,15 @@ app.all('/:thing_id', function(req, res){
             ,   href:       getParams.href
             ,   data:       JSON.merge(getParams.query, req.body) // Merging GET and POST data (priority to POST data)
         }
-        ,   thing = require('./things/' + thing_id)(thingParams)
+        ,   thingApp = require('./apps/' + thing_id)(thingParams)
 
         res.statusCode = 200
-        res.send(thing.res)
+        res.send(thingApp.res)
     } else {
         /*
          * The thing module doesn't exist.
          */
-        console.error('Thing "' + req.params.thing_id + '" not found.')
+        console.error('Thing app #' + req.params.thing_id + ' not found.')
         res.statusCode = 404
         res.end()
     }

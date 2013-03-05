@@ -1,54 +1,61 @@
 # Things loader
 
-The things loader represents the part of the script that loads the appropriate thing module.
+The things loader represents the part of the script that loads the appropriate thing application.
 
-A thing module is a _Node.js module_ that represents the 'Thing' logic (software). The thing modules are identical to node.js modules, except that they are stored in the `things/` folder:
+A thing app is a _Node.js module_ that represents the 'Thing' logic (application) to manage the corresponding physical thing (take decisions, convert values, save values,…) The thing app is identical to a node.js module, except that it is stored in the `apps/` folder:
 
     ./
       app.js
       node_modules/
-      things/
-        thing_1/
-        thing_2/
+      apps/
+        thing_app_1/
+        thing_app_2/
         ...
 
-The thing module to be loaded is pacified in the URL, like this:
+The thing app to be loaded is pacified in the URL, like this:
 
-    host:port/thing_id
+    host:port/app_id
 
-Things are represented by their unique id [to be discussed]. This is to be distinguished with the other hub commands [not yet implemented. Thinking about `status`, `things_list`,…]
+Thing apps are represented by their unique id [to be discussed]. This is to be distinguished with the other hub commands [not yet implemented. Thinking about `status`, `install`, `update`, `things_list`,…]
 
 Where:
 
 - `host` is the IP address of the hub
 - `port` is the port of the hub
-- `thing_id` is the ID of the thing module to load
+- `app_id` is the ID of the thing app to load
 
 ## How it works
 
-When the hub is queried, the thing id is extracted from the URL, and the corresponding module is loaded.
+When the hub is queried, the thing app id (which must be a number) is extracted from the URL, and the corresponding app is loaded.
 
-This module **MUST** contain the `package.json` file and clearly specify the main script to be loaded, using `"main": "script_name.js"`
+The thing app **MUST** contain the `package.json` file and clearly specify the main script to be loaded, using `"main": "script_name.js"`
 
-The things loader also extracts all the parameters of the URL, including the query parameters and the used method. All the parameters are sent to the module when it is loaded.
+The things loader also extracts all the parameters of the URL, including the query parameters and the used method. All the parameters are sent to the app when it is loaded.
 
-In order to grab the parameters, the module script must be a function that handle the parameters:
+In order to grab the parameters, the main app script must be a function that handle the parameters:
 
     module.exports = function(params){
         // Do things here
     }
 
-The things loader 
+The app must returns a JSON, with the following schema:
+
+    {
+        success: (bool)		// true if everything is OK, false if any error
+    ,	msg: (string)		// An optional message that follows the 'success' value.
+    						// Can be useful if success = false
+    ,	data: (JSON)		// The returned useful data. Optional if error.
+    }
 
 ## Sended parameters
 
-The things loader calls the appropriate thing module, with parameters as a JSON list:
+The things loader calls the appropriate thing app, with parameters as a JSON list:
 
     {
-        method: (string) // The query method (GET, POST)
-    ,	thing_id: (int) // The thing id
-    ,	href: (string) // The full URL sent to the hub
-    ,	data: (JSON) // Data sent by GET and POST, in JSON format
+        method: (string)	// The query method (GET, POST, PUT, DELETE)
+    ,	thing_id: (int)		// The thing app id
+    ,	href: (string)		// The full URL sent to the hub
+    ,	data: (JSON)		// Data sent by GET and POST/PUT, in JSON format
     }
 
-**Nota.:** The `data` parameter is the merge between GET and POST parameters. If some parameter keys are found both in GET parameters and POST parameters, the priority is given to POST parameters.
+**Nota.:** The `data` parameter is the merge between GET and POST/PUT parameters. If some parameter keys are found both in GET parameters and POST/PUT parameters, the priority is given to POST/PUT parameters.
