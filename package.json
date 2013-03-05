@@ -2,7 +2,16 @@
 ,   "version": "0.0.1"
 ,   "description": "The Smart Hub server."
 ,   "author": "Hassen Taidirt <htaidirt@gmail.com>"
+,   "keywords":
+[       "Internet of Things"
+,       "Smart"
+,       "Hub"
+]
 ,   "private": true
+,   "repository":
+{       "type": "git"
+,       "url": "https://github.com/htaidirt/openhub.git"
+}
 ,   "dependencies":
 {       "express": "latest"
 }
@@ -13,5 +22,8 @@
 ,   "scripts":
 {       "start": "node app"
 ,       "test": "mocha test"
+}
+,   "engines":
+{       "node": ">=0.8.16"
 }
 }

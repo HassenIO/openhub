@@ -1,0 +1,13 @@
+/**
+ * Settings relative to the thing apps.
+ *
+ * Usage:
+ * -    blacklist (array): List of app ids that should never be installed (black listed by the user)
+ * 
+ * Please, save kittens by respecting the alphabetical order in order to keep the settings organized.
+ *
+ */
+
+{   
+,   "blackList": []
+}
