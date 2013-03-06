@@ -3,13 +3,16 @@
  */
 var http = require('http')
 ,   express = require('express')
-,   things_loader = require('./routes/things_loader')
+,   app_manager = require('./routes/app_manager')
 
 /*
  * Group other variable declarations.
  */
 var app = express()
 
+/*
+ * General express configuration.
+ */
 app.configure(function(){
     this.set('port', process.env.PORT || 1337)    // Set default port to 1337
     this.use(express.bodyParser())              // Use body parser to get POST data, if any.
@@ -26,7 +29,8 @@ app.configure('development', function(){
 /*
  * Define routes.
  */
-app.get('/:thing_id(\\d+)', things_loader)  // Load the thing app
+app.get('/:app_id(\\d+)', app_manager.load)     // Load the thing app
+app.get('/apps/list', app_manager.list)         // List installed apps
 
 /*
  * Create the http server and listen to the approriate port.

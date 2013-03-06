@@ -1,6 +1,6 @@
-# Things loader
+# App Manager
 
-The things loader represents the part of the script that loads the appropriate thing application.
+The app manager is a script that manage the thing app.
 
 A thing app is a _Node.js module_ that represents the 'Thing' logic (application) to manage the corresponding physical thing (take decisions, convert values, save values,…) The thing app is identical to a node.js module, except that it is stored in the `apps/` folder:
 
@@ -8,29 +8,42 @@ A thing app is a _Node.js module_ that represents the 'Thing' logic (application
       app.js
       node_modules/
       apps/
-        thing_app_1/
-        thing_app_2/
+        app_1/
+        app_2/
         ...
 
-The thing app to be loaded is pacified in the URL, like this:
+Thing apps are represented by their unique id. This is to be distinguished with the other app manager commands [`install`, `update`, `list`,…]
 
-    host:port/app_id
+## List applications
 
-Thing apps are represented by their unique id [to be discussed]. This is to be distinguished with the other hub commands [not yet implemented. Thinking about `status`, `install`, `update`, `things_list`,…]
+This is done by visiting:
+
+	host:port/apps/list
 
 Where:
 
 - `host` is the IP address of the hub
 - `port` is the port of the hub
-- `app_id` is the ID of the thing app to load
 
-## How it works
+This query returns the list of available apps in the hub.
 
-When the hub is queried, the thing app id (which must be a number) is extracted from the URL, and the corresponding app is loaded.
+## Load a thing application
+
+A thing app is loaded when the server is queried with the following URL format:
+
+    host:port/app_id
+
+Where:
+
+- `app_id` is the ID of the thing app to load (must be an integer)
+
+### How it works
+
+In this case, the thing app id (which must be a number) is extracted from the URL, and the corresponding app is loaded (located in the `./apps/app_id` folder.)
 
 The thing app **MUST** contain the `package.json` file and clearly specify the main script to be loaded, using `"main": "script_name.js"`
 
-The things loader also extracts all the parameters of the URL, including the query parameters and the used method. All the parameters are sent to the app when it is loaded.
+The app manager also extracts all the parameters from the URL, including the query parameters and the used method. All the parameters are sent to the app when it is loaded.
 
 In order to grab the parameters, the main app script must be a function that handle the parameters:
 
@@ -38,22 +51,22 @@ In order to grab the parameters, the main app script must be a function that han
         // Do things here
     }
 
-The app must returns a JSON, with the following schema:
+The app must return data in the following JSON format:
 
     {
         success: (bool)		// true if everything is OK, false if any error
     ,	msg: (string)		// An optional message that follows the 'success' value.
     						// Can be useful if success = false
     ,	data: (JSON)		// The returned useful data. Optional if error.
-    }
+    }    
 
-## Sended parameters
+### Sended parameters
 
-The things loader calls the appropriate thing app, with parameters as a JSON list:
+The app manager loads the appropriate thing app, with the following JSON parameters:
 
     {
         method: (string)	// The query method (GET, POST, PUT, DELETE)
-    ,	thing_id: (int)		// The thing app id
+    ,	app_id: (int)		// The thing app id
     ,	href: (string)		// The full URL sent to the hub
     ,	data: (JSON)		// Data sent by GET and POST/PUT, in JSON format
     }
