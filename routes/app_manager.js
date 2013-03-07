@@ -17,7 +17,10 @@ module.exports = {
             if(err) throw err
 
             res.statusCode = 200
-            res.send(folders)
+            res.send(JSON.stringify({
+                success: true,
+                apps: folders
+            }))
         })
 
     },  // End of list func.

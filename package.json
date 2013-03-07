@@ -17,11 +17,12 @@
 }
 ,   "devDependencies":
 {       "mocha": "latest"
+,       "assert": "*"
 ,       "consoleplusplus": "*"
 }
 ,   "scripts":
 {       "start": "node app"
-,       "test": "mocha test"
+,       "test": "clear && mocha test -R spec"
 }
 ,   "engines":
 {       "node": ">=0.8.16"
