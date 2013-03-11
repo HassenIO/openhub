@@ -49,15 +49,15 @@ describe('app_manager >', function(){
 
     describe('list applications >', function(){
 
-        it('should have a 200 response on GET /apps/list', function(done){
-            http.get(server.root + '/apps/list', function(res){
+        it('should have a 200 response on GET /apps', function(done){
+            http.get(server.root + '/apps', function(res){
                 assert.equal(200, res.statusCode)
                 done()
             })
         })
 
         it('should return an array', function(done){
-            http.get(server.root + '/apps/list', function(res){
+            http.get(server.root + '/apps', function(res){
                 var data = ''
 
                 res.on('data', function(chunk){
