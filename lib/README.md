@@ -1,0 +1,1 @@
+The `./lib` folder hosts node.js scripts for general use.

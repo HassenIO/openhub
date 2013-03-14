@@ -1,0 +1,1 @@
+The `./application/lib` folder contains node.js script to use in the project context.

@@ -1,0 +1,1 @@
+The `./config` folder contains JSON files that store application settings.
