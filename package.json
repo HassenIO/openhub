@@ -12,6 +12,7 @@
 {       "type": "git"
 ,       "url": "https://github.com/htaidirt/openhub.git"
 }
+,   "preferGlobal": true
 ,   "dependencies":
 {       "express": "latest"
 }
@@ -21,7 +22,7 @@
 ,       "consoleplusplus": "*"
 }
 ,   "scripts":
-{       "start": "node app"
+{       "start": "node main"
 ,       "test": "clear && mocha test -R spec"
 }
 ,   "engines":
