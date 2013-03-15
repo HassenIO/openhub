@@ -7,8 +7,7 @@ var http = require('http') ,
 /*
  * Load routes.
  */
-var routes = './application/routes/' ,
-    app_manager = require(routes + 'app_manager') ;
+var routes = require('./application/lib/routes') ;
 
 /*
  * Set variables.
@@ -22,24 +21,16 @@ var app = express() ,
  */
 app.configure(function(){
     this.set('port', process.env.PORT || 1337);                 // Set the correct port number.
-    this.set('views', __dirname + '/application/responses');    // Set the views root folder
-    this.set('view engine', 'json');                            // Views are JSON
+    this.disable('x-powered-by');                               // Disable X-POWERED-BY header
     this.use(express.bodyParser());                             // Use body parser to get POST data, if any.
     this.use(app.router);
 });
 
-/*
- * Configure express for the development mode.
- */
-app.configure('development', function(){
-    this.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
 
 /*
  * Define routes.
  */
-app.get('/:app_id(\\d+)', app_manager.load);     // Load the thing app
-app.get('/apps', app_manager.list);              // List installed apps
+routes(app);
 
 /*
  * Create the server and listen to the correct port.

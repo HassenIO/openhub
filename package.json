@@ -1,5 +1,5 @@
-{   "name": "Smart-Hub"
-,   "version": "0.0.1"
+{   "name": "smart-hub"
+,   "version": "0.1.1"
 ,   "description": "The Smart Hub server."
 ,   "author": "Hassen Taidirt <htaidirt@gmail.com>"
 ,   "keywords":
@@ -22,10 +22,10 @@
 ,       "consoleplusplus": "*"
 }
 ,   "scripts":
-{       "start": "node main"
+{       "start": "node server"
 ,       "test": "clear && mocha test -R spec"
 }
 ,   "engines":
-{       "node": ">=0.8.16"
+{       "node": ">=0.10.0"
 }
 }
