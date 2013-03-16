@@ -15,6 +15,7 @@
 ,   "preferGlobal": true
 ,   "dependencies":
 {       "express": "latest"
+,       "jsonlint": "*"
 }
 ,   "devDependencies":
 {       "mocha": "latest"

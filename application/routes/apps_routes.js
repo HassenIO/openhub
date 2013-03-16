@@ -3,7 +3,7 @@
  */
 
 var JSON = require('../../lib/JSON') ;
-var response = require('../lib/response') ;
+var respond = require('../lib/respond') ;
 var apps_manager = require('../managers/apps_manager') ;
 
 
@@ -15,7 +15,7 @@ module.exports = {
     list: function(req, res){
 
               var   apps_list = apps_manager.list();
-              response(res, 200, apps_list);
+              respond(res, 200, apps_list);
 
           },
 
@@ -41,15 +41,15 @@ module.exports = {
                             href:       get_params.href ,
                             data:       JSON.merge(get_params.query, req.body) // Merging GET and POST data (priority to POST data)
                         } ,
-                        app_response = apps_manager.load(app_id, app_params);
+                        app_respond = apps_manager.load(app_id, app_params);
 
-                    response(res, 200, { params: app_params, app_res: app_response.res });
+                    respond(res, 200, { params: app_params, app_res: app_respond.res });
                 } else {
                     /*
                      * The app doesn't exist.
                      */
                     console.warn('App #' + req.params.app_id + ' not found.');
-                    response(res, 404, { message: 'App #' + req.params.app_id + ' not found.' });
+                    respond(res, 404, { message: 'App #' + req.params.app_id + ' not found.' });
                 }
 
             }
