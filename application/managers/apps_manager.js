@@ -3,30 +3,38 @@
  * Please, see the docs/app_manager.md documentation for more information.
  */
 
-var fs = require('fs') ;
+var fs = require('fs') ,
+    zlib = require('zlib') ;
 
 module.exports = {
 
     /*
      * Check if an app exists.
      */
-    exist:  function(app_id){
-                return fs.existsSync('./apps/' + app_id);
-            },
+    exist:      function(app_id){
+                    return fs.existsSync('./apps/' + app_id);
+                },
 
     /*
      * Get the list of available apps.
      */
-    list:   function(){
-                return fs.readdirSync('./apps');
-            },
+    list:       function(){
+                    return fs.readdirSync('./apps');
+                },
 
     /*
      * Load an app for use.
      */
-    load:   function(app_id, app_params){
-                return require('../../apps/' + app_id)(app_params);
-            }
+    load:       function(app_id, app_params){
+                    return require('../../apps/' + app_id)(app_params);
+                },
+
+    /*
+     * Publish an app to the remote server.
+     */
+    publish:    function(app_id){
+                    
+                }
 
 }
 
